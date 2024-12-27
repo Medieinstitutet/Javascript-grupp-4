@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,49 @@
     <link rel="stylesheet" href="style.css">
     <script src="app.js" defer></script>
 </head>
+
 <body>
-    
+    <header>
+        <input type="text" id="search" placeholder="Search">
+        <button type="submit">Search</button>
+    </header>
+    <main>
+        <h1>TODO</h1>
+        <section>
+            <form id="todoForm">
+                <input type="text" id="todoInput" placeholder="Add a new todo">
+                <button type="submit">Add</button>
+            </form>
+        </section>
+        <section>
+            <select id="sort">
+                <option value="0">Sort by</option>
+                <option value="1">A-Z</option>
+                <option value="2">Z-A</option>
+            </select>
+
+            <select id="filter">
+                <option value="0">Filter by</option>
+                <option value="1">Done</option>
+                <option value="2">Not done</option>
+            </select>
+        </section>
+        <section>
+            <ul id="todoList">
+            <!-- 
+                <li>
+                    <form id="editTodoForm">
+                        <input type="text" value="Buy milk" readonly>
+                        <input id="doneCheckbox" type="checkbox">
+                        <button type="button">Delete</button>
+                        <button id="editSaveBtn" type="submit">Edit</button>
+                    </form>
+                </li>
+            -->
+            </ul>
+            <button id="eraseAllBtn" type="button">Erase all</button>
+        </section>
+    </main>
 </body>
+
 </html>
