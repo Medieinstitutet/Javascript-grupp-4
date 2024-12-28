@@ -3,8 +3,6 @@ const data = JSON.parse(localStorage.getItem('todos')) || [];
 const todoForm = document.querySelector('#todoForm');
 const todoInput = document.querySelector('#todoInput');
 
-const changedData = data;
-
 function renderTodos() {
     const todoList = document.querySelector('#todoList');
     todoList.innerHTML = '';
