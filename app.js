@@ -3,6 +3,24 @@ const data = JSON.parse(localStorage.getItem('todos')) || [];
 const todoForm = document.querySelector('#todoForm');
 const todoInput = document.querySelector('#todoInput');
 
+function renderTodos() {
+    const todoList = document.querySelector('#todoList');
+    todoList.innerHTML = '';
+    
+    data.forEach(todo => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <form id="editTodoForm">
+                <input type="text" value="${todo.text}" readonly>
+                <input id="doneCheckbox" type="checkbox" ${todo.done ? 'checked' : ''}>
+                <button type="button">Delete</button>
+                <button id="editSaveBtn" type="submit">Edit</button>
+            </form>
+        `;
+        todoList.appendChild(li);
+    });
+}
+
 todoForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const todoText = todoInput.value.trim();
@@ -19,7 +37,8 @@ todoForm.addEventListener('submit', (e) => {
         localStorage.setItem('todos', JSON.stringify(data));
         
         todoInput.value = '';
-        console.log('Current todos:', data);
+        renderTodos();
     }
 });
 
+renderTodos();
