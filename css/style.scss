@@ -3,3 +3,147 @@
     margin: 0;
     padding: 0;     
 }
+
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    margin-bottom: 2rem;
+    
+    input, button {
+        padding: 8px;
+        border-radius: 4px;
+    }
+}
+
+main {
+    h1 {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+}
+
+#todoForm {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 2rem;
+    
+    input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        
+        &:hover {
+            background-color: #45a049;
+        }
+    }
+}
+
+#todoList {
+    list-style: none;
+    
+    li {
+        margin-bottom: 10px;
+        
+        form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            
+            input[type="text"] {
+                flex: 1;
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                
+                &[readonly] {
+                    background-color: transparent;
+                    border: none;
+                }
+            }
+            
+            input[type="checkbox"] {
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
+            
+            button {
+                padding: 8px 16px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                
+                &[type="button"] {
+                    background-color: #f44336;
+                    color: white;
+                    
+                    &:hover {
+                        background-color: #da190b;
+                    }
+                }
+                
+                &[type="submit"] {
+                    background-color: #2196F3;
+                    color: white;
+                    
+                    &:hover {
+                        background-color: #0b7dda;
+                    }
+                }
+            }
+        }
+        
+        &:has(input[type="checkbox"]:checked) {
+            form {
+                background-color: #e8f5e9;
+                
+                input[type="text"] {
+                    text-decoration: line-through;
+                    color: #666;
+                }
+            }
+        }
+    }
+}
+
+#eraseAllBtn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    
+    &:hover {
+        background-color: #da190b;
+    }
+}
+
+select {
+    padding: 8px;
+    margin-right: 10px;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
