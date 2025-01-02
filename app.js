@@ -1,13 +1,39 @@
 const data = JSON.parse(localStorage.getItem('todos')) || [];
 
+const searchBar = document.querySelector('#search-bar');
+const searchButton = document.querySelector('#search-button');
 const todoForm = document.querySelector('#todoForm');
 const todoInput = document.querySelector('#todoInput');
+
+function search() {
+    // Search for items / filter the todo items based on user input.
+    const searchValue = searchBar.value.toUpperCase(); // The text in searchBar
+    const todoItems = Array.from(document.querySelectorAll('#todoList > li'));
+
+    // Loop through all todo list items, and hide those who don't match the searchValue
+    for (let i = 0; i < todoItems.length; i++) {
+        // get the todo value from its parent
+        const todoInput = todoItems[i].querySelector('#editTodoForm > input');
+        const todoValue = todoInput.value;
+
+        if (todoValue.toUpperCase().indexOf(searchValue) > -1) {
+            todoItems[i].style.display = '';
+        } else {
+            todoItems[i].style.display = 'none';
+        }
+        
+    }
+}
+
+searchButton.addEventListener('click', () => {
+    search();
+});
 
 function renderTodos() {
     const todoList = document.querySelector('#todoList');
     todoList.innerHTML = '';
     
-    changedData.forEach(todo => {
+    data.forEach(todo => {
         const li = document.createElement('li');
         li.innerHTML = `
             <form id="editTodoForm">
