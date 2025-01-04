@@ -26,6 +26,11 @@ function search() {
 }
 
 searchButton.addEventListener('click', search);
+searchBar.addEventListener('keyup', (e) => {
+  if (e.key === 'Enter') {
+    search();
+  }
+});
 
 function handleTodoStatusChange(e) {
   const todoId = Number(e.target.dataset.id);
