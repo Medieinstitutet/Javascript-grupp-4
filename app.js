@@ -114,4 +114,18 @@ function handleEditTodo(e) {
   }
 }
 
+// Sort from A-Z and from Z-A...
+const sortList = () => {
+  const sortOrder = sortItems.value;
+
+  if (sortOrder === '1') {
+    data.sort((a, b) => a.text.localeCompare(b.text));
+  } else if (sortOrder === '2') {
+    data.sort((a, b) => b.text.localeCompare(a.text));
+  }
+
+  renderTodos();
+}
+
+sortItems.addEventListener('change', sortList);
 renderTodos();
