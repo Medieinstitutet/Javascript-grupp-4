@@ -1,68 +1,57 @@
-let data = JSON.parse(localStorage.getItem('todos')) || [];
+const data = JSON.parse(localStorage.getItem('todos')) || [];
 
 const todoForm = document.querySelector('#todoForm');
 const todoInput = document.querySelector('#todoInput');
 
 function handleTodoStatusChange(e) {
-  const todoId = Number(e.target.dataset.id);
-  const todoIndex = data.findIndex((item) => item.id === todoId);
-
-  if (todoIndex !== -1) {
-    data[todoIndex].done = e.target.checked;
-    localStorage.setItem('todos', JSON.stringify(data));
-  }
+    const todoId = Number(e.target.dataset.id);
+    const todoIndex = data.findIndex(item => item.id === todoId);
+    
+    if (todoIndex !== -1) {
+        data[todoIndex].done = e.target.checked;
+        localStorage.setItem('todos', JSON.stringify(data));
+    }
 }
 
 function renderTodos() {
-  const todoList = document.querySelector('#todoList');
-  todoList.innerHTML = '';
-
-  data.forEach((todo) => {
-    const li = document.createElement('li');
-    li.innerHTML = `
+    const todoList = document.querySelector('#todoList');
+    todoList.innerHTML = '';
+    
+    data.forEach(todo => {
+        const li = document.createElement('li');
+        li.innerHTML = `
             <form id="editTodoForm">
                 <input type="text" value="${todo.text}" readonly>
-                <input id="doneCheckbox" type="checkbox" ${
-                  todo.done ? 'checked' : ''
-                } data-id="${todo.id}">
-                <button type="button" class="deletebtn" data-id="${
-                  todo.id
-                }">Delete</button>
+                <input id="doneCheckbox" type="checkbox" ${todo.done ? 'checked' : ''} data-id="${todo.id}">
+                <button type="button">Delete</button>
                 <button id="editSaveBtn" type="submit">Edit</button>
             </form>
         `;
-    todoList.appendChild(li);
+        todoList.appendChild(li);
+        
+        const checkbox = li.querySelector('#doneCheckbox');
+        checkbox.addEventListener('change', handleTodoStatusChange);
+    });
+}
 
-    const checkbox = li.querySelector('#doneCheckbox');
-    checkbox.addEventListener('change', handleTodoStatusChange);
-    const deleteBtn = li.querySelector('.deletebtn');
-    deleteBtn.addEventListener('click', deleteTodo);
-  });
-}
-function deleteTodo(e) {
-  const todoId = Number(e.target.dataset.id);
-  data = data.filter((todo) => todo.id !== todoId);
-  localStorage.setItem('todos', JSON.stringify(data));
-  renderTodos();
-}
 todoForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const todoText = todoInput.value.trim();
-
-  if (todoText) {
-    const newTodo = {
-      id: Date.now(),
-      text: todoText,
-      done: false,
-      createdAt: new Date().toISOString(),
-    };
-
-    data.push(newTodo);
-    localStorage.setItem('todos', JSON.stringify(data));
-
-    todoInput.value = '';
-    renderTodos();
-  }
+    e.preventDefault();
+    const todoText = todoInput.value.trim();
+    
+    if (todoText) {
+        const newTodo = {
+            id: Date.now(),
+            text: todoText,
+            done: false,
+            createdAt: new Date().toISOString()
+        };
+        
+        data.push(newTodo);
+        localStorage.setItem('todos', JSON.stringify(data));
+        
+        todoInput.value = '';
+        renderTodos();
+    }
 });
 
 renderTodos();
