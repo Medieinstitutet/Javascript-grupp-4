@@ -1,4 +1,4 @@
-const data = JSON.parse(localStorage.getItem('todos')) || [];
+let data = JSON.parse(localStorage.getItem('todos')) || [];
 
 const searchBar = document.querySelector('#search-bar');
 const searchButton = document.querySelector('#search-button');
@@ -53,7 +53,9 @@ function renderTodos() {
                 <input id="doneCheckbox" type="checkbox" ${
                   todo.done ? 'checked' : ''
                 } data-id="${todo.id}">
-                <button type="button">Delete</button>
+                <button type="button" class="deletebtn" data-id="${
+                  todo.id
+                }">Delete</button>
                 <button id="editSaveBtn" type="submit">Edit</button>
             </form>
         `;
@@ -62,11 +64,19 @@ function renderTodos() {
     const checkbox = li.querySelector('#doneCheckbox');
     checkbox.addEventListener('change', handleTodoStatusChange);
 
+    const deleteBtn = li.querySelector('.deletebtn');
+    deleteBtn.addEventListener('click', deleteTodo);
+
     const editForm = li.querySelector('#editTodoForm');
     editForm.addEventListener('submit', handleEditTodo);
   });
 }
-
+function deleteTodo(e) {
+  const todoId = Number(e.target.dataset.id);
+  data = data.filter((todo) => todo.id !== todoId);
+  localStorage.setItem('todos', JSON.stringify(data));
+  renderTodos();
+}
 todoForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const todoText = todoInput.value.trim();
