@@ -4,6 +4,7 @@ const searchBar = document.querySelector('#search-bar');
 const searchButton = document.querySelector('#search-button');
 const todoForm = document.querySelector('#todoForm');
 const todoInput = document.querySelector('#todoInput');
+const sortItems = document.querySelector('#sort');
 
 function search() {
   // Search for items / filter the todo items based on user input.
