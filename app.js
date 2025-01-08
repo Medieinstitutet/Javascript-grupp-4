@@ -1,4 +1,4 @@
-const data = JSON.parse(localStorage.getItem('todos')) || [];
+let data = JSON.parse(localStorage.getItem('todos')) || [];
 
 const searchBar = document.querySelector('#search-bar');
 const searchButton = document.querySelector('#search-button');
