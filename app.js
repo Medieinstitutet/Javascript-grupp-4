@@ -1,7 +1,35 @@
-let data = JSON.parse(localStorage.getItem('todos')) || [];
+const data = JSON.parse(localStorage.getItem('todos')) || [];
 
+const searchBar = document.querySelector('#search-bar');
+const searchButton = document.querySelector('#search-button');
 const todoForm = document.querySelector('#todoForm');
 const todoInput = document.querySelector('#todoInput');
+
+function search() {
+  // Search for items / filter the todo items based on user input.
+  const searchValue = searchBar.value.toUpperCase(); // The text in searchBar
+  const todoItems = Array.from(document.querySelectorAll('#todoList > li'));
+
+  // Loop through all todo list items, and hide those who don't match the searchValue
+  for (let i = 0; i < todoItems.length; i++) {
+    // get the todo value from its parent
+    const todoInput = todoItems[i].querySelector('#editTodoForm > input');
+    const todoValue = todoInput.value;
+
+    if (todoValue.toUpperCase().indexOf(searchValue) > -1) {
+      todoItems[i].style.display = '';
+    } else {
+      todoItems[i].style.display = 'none';
+    }
+  }
+}
+
+searchButton.addEventListener('click', search);
+searchBar.addEventListener('keyup', (e) => {
+  if (e.key === 'Enter') {
+    search();
+  }
+});
 
 function handleTodoStatusChange(e) {
   const todoId = Number(e.target.dataset.id);
@@ -35,8 +63,12 @@ function renderTodos() {
 
     const checkbox = li.querySelector('#doneCheckbox');
     checkbox.addEventListener('change', handleTodoStatusChange);
+
     const deleteBtn = li.querySelector('.deletebtn');
     deleteBtn.addEventListener('click', deleteTodo);
+
+    const editForm = li.querySelector('#editTodoForm');
+    editForm.addEventListener('submit', handleEditTodo);
   });
 }
 function deleteTodo(e) {
@@ -64,5 +96,31 @@ todoForm.addEventListener('submit', (e) => {
     renderTodos();
   }
 });
+
+function handleEditTodo(e) {
+  e.preventDefault();
+  const li = e.target.closest('li');
+  const form = li.querySelector('#editTodoForm');
+  const input = form.querySelector('input[type="text"]');
+  const editSaveBtn = form.querySelector('#editSaveBtn');
+
+  if (editSaveBtn.textContent === 'Edit') {
+    // Switch to edit mode
+    input.removeAttribute('readonly');
+    input.focus();
+    editSaveBtn.textContent = 'Save';
+  } else {
+    // Save the edited todo
+    const todoId = Number(li.querySelector('#doneCheckbox').dataset.id);
+    const todoIndex = data.findIndex((item) => item.id === todoId);
+
+    if (todoIndex !== -1) {
+      data[todoIndex].text = input.value.trim();
+      localStorage.setItem('todos', JSON.stringify(data));
+      input.setAttribute('readonly', true);
+      editSaveBtn.textContent = 'Edit';
+    }
+  }
+}
 
 renderTodos();
