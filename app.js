@@ -4,6 +4,7 @@ const searchBar = document.querySelector('#search-bar');
 const searchButton = document.querySelector('#search-button');
 const todoForm = document.querySelector('#todoForm');
 const todoInput = document.querySelector('#todoInput');
+const filterSelect = document.querySelector('#filter-select');
 
 function search() {
   // Search for items / filter the todo items based on user input.
@@ -41,11 +42,26 @@ function handleTodoStatusChange(e) {
   }
 }
 
-function renderTodos() {
+function filterTodos() {
+  const filterValue = filterSelect.value; // Get selected filter value
+  renderTodos(filterValue);
+}
+
+filterSelect.addEventListener('change', filterTodos);
+
+function renderTodos(filter = 'all') {
   const todoList = document.querySelector('#todoList');
   todoList.innerHTML = '';
 
   data.forEach((todo) => {
+    // Apply filtering based on the selected filter
+    if (
+      filter === 'done' && !todo.done ||
+      filter === 'not-done' && todo.done
+    ) {
+      return; // Skip todos that don't match the filter
+    }
+
     const li = document.createElement('li');
     li.innerHTML = `
             <form id="editTodoForm">
