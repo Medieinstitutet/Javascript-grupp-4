@@ -60,7 +60,7 @@ function selectRandomTodo() {
   const randomTodo = data[Math.floor(Math.random() * data.length)];
 
   // Display the selected task to the user
-  alert(`Random Task: ${randomTodo.text}`);
+  alert(`Here is your Random Task --> ${randomTodo.text} <-- Good Luck! :D`);
 }
 
 randomButton.addEventListener('click', selectRandomTodo);

@@ -59,6 +59,19 @@ main {
     }
 }
 
+#random-button {
+    padding: 10px 20px;
+    background-color: #55e2c6;
+    color: rgb(11, 0, 0);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    
+    &:hover {
+        background-color: #33a0aa;
+    }
+}
+
 #todoList {
     list-style: none;
     
