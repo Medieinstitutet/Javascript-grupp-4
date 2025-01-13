@@ -139,4 +139,5 @@ function handleEditTodo(e) {
   }
 }
 
+sortItems.addEventListener('change', sortList);
 renderTodos();
