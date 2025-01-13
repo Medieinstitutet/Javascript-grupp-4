@@ -5,6 +5,8 @@ const searchButton = document.querySelector('#search-button');
 const todoForm = document.querySelector('#todoForm');
 const todoInput = document.querySelector('#todoInput');
 const filterSelect = document.querySelector('#filter-select');
+const sortItems = document.querySelector('#sort');
+
 
 function search() {
   // Search for items / filter the todo items based on user input.
@@ -139,4 +141,17 @@ function handleEditTodo(e) {
   }
 }
 
+const sortList = () => {
+    const sortOrder = sortItems.value;
+  
+    if (sortOrder === '1') {
+      data.sort((a, b) => a.text.localeCompare(b.text));
+    } else if (sortOrder === '2') {
+      data.sort((a, b) => b.text.localeCompare(a.text));
+    }
+  
+    renderTodos();
+}
+
+sortItems.addEventListener('change', sortList);
 renderTodos();
