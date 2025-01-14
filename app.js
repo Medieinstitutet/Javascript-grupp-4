@@ -130,6 +130,14 @@ const showError = (message) => {
     }, 2000);
 };
 
+const createErrorMessage = (message) => {
+    const div = document.createElement('div');
+    div.setAttribute('id', 'error-message');
+    div.appendChild(document.createTextNode(message));
+    div.classList.add('error-message');
+    return div;
+};
+
 function handleEditTodo(e) {
   e.preventDefault();
   const li = e.target.closest('li');
