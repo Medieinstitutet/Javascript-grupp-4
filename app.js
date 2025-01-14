@@ -115,6 +115,16 @@ todoForm.addEventListener('submit', (e) => {
   }
 });
 
+const showError = (message) => {
+    const errorMsg = createErrorMessage(message);
+    const errorDiv = document.querySelector('.error');
+    
+    errorDiv.innerHTML = '';
+    
+    errorDiv.appendChild(errorMsg);
+    errorDiv.style.display = 'block';
+};
+
 function handleEditTodo(e) {
   e.preventDefault();
   const li = e.target.closest('li');
