@@ -107,6 +107,13 @@ todoForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const todoText = todoInput.value.trim();
 
+  if (todoText.length === 0) {
+    showError('Please enter a todo item!');
+    todoInput.value = '';
+    return;
+  }
+
+
   if (todoText) {
     const newTodo = {
       id: Date.now(),
@@ -123,6 +130,29 @@ todoForm.addEventListener('submit', (e) => {
     updateTodoCount(); // update count
   }
 });
+
+const showError = (message) => {
+    const errorMsg = createErrorMessage(message);
+    const errorDiv = document.querySelector('.error');
+    
+    errorDiv.innerHTML = '';
+    
+    errorDiv.appendChild(errorMsg);
+    errorDiv.style.display = 'block';
+    
+    setTimeout(() => {
+      errorDiv.innerHTML = '';
+      errorDiv.style.display = 'none';
+    }, 2000);
+};
+
+const createErrorMessage = (message) => {
+    const div = document.createElement('div');
+    div.setAttribute('id', 'error-message');
+    div.appendChild(document.createTextNode(message));
+    div.classList.add('error-message');
+    return div;
+};
 
 function handleEditTodo(e) {
   e.preventDefault();
