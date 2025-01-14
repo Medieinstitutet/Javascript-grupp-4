@@ -99,6 +99,13 @@ todoForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const todoText = todoInput.value.trim();
 
+  if (todoText.length === 0) {
+    showError('Please enter a todo item!');
+    todoInput.value = '';
+    return;
+  }
+
+
   if (todoText) {
     const newTodo = {
       id: Date.now(),
