@@ -34,6 +34,13 @@ searchBar.addEventListener('keyup', (e) => {
   }
 });
 
+
+function updateTodoCount() {
+  const count = data.length; // Number of todos in the list
+  const todoCount = document.querySelector('#todoCount');
+  todoCount.textContent = `Total Todos: ${count}`;
+}
+
 function handleTodoStatusChange(e) {
   const todoId = Number(e.target.dataset.id);
   const todoIndex = data.findIndex((item) => item.id === todoId);
@@ -94,6 +101,7 @@ function deleteTodo(e) {
   data = data.filter((todo) => todo.id !== todoId);
   localStorage.setItem('todos', JSON.stringify(data));
   renderTodos();
+  updateTodoCount(); // update count
 }
 todoForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -112,6 +120,7 @@ todoForm.addEventListener('submit', (e) => {
 
     todoInput.value = '';
     renderTodos();
+    updateTodoCount(); // update count
   }
 });
 
@@ -155,3 +164,16 @@ const sortList = () => {
 
 sortItems.addEventListener('change', sortList);
 renderTodos();
+updateTodoCount(); // update count
+
+//erase all todos
+function eraseAllTodos() {
+  data = []; 
+  localStorage.setItem('todos', JSON.stringify(data)); 
+  renderTodos(); 
+  updateTodoCount(); // update count
+}
+
+//add eventlistener to erase button
+const eraseAllBtn = document.querySelector('#eraseAllBtn');
+eraseAllBtn.addEventListener('click', eraseAllTodos);
