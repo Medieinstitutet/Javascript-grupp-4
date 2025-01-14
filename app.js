@@ -123,6 +123,11 @@ const showError = (message) => {
     
     errorDiv.appendChild(errorMsg);
     errorDiv.style.display = 'block';
+    
+    setTimeout(() => {
+      errorDiv.innerHTML = '';
+      errorDiv.style.display = 'none';
+    }, 2000);
 };
 
 function handleEditTodo(e) {
