@@ -237,3 +237,5 @@ function eraseAllTodos() {
 
 // Koppla rensa-knappen till funktionen
 eraseAllButton.addEventListener('click', eraseAllTodos);
+
+//test
