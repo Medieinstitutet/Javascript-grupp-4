@@ -228,13 +228,12 @@ function eraseAllTodos() {
     localStorage.removeItem('todos'); // Ta bort från localStorage
     todoList.innerHTML = ''; // Töm DOM
     console.log('Alla uppgifter rensade!');
-    renderTodos(); 
     updateTodoCount(); // update count
   }
+  
+  // Rendera todo-listan vid start
+  renderTodos ();
 }
 
 // Koppla rensa-knappen till funktionen
 eraseAllButton.addEventListener('click', eraseAllTodos);
-
-// Rendera todo-listan vid start
-renderTodos ();
