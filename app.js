@@ -10,6 +10,9 @@ const filterSelect = document.querySelector('#filter-select');
 const randomButton = document.querySelector('#random-button'); 
 const sortItems = document.querySelector('#sort');
 
+const todoList = document.querySelector('#todoList');
+const eraseAllButton = document.querySelector('#eraseAllBtn'); 
+
 
 function search() {
   // Search for items / filter the todo items based on user input.
@@ -220,14 +223,19 @@ updateTodoCount(); // update count
 
 //erase all todos
 function eraseAllTodos() {
-  data = []; 
-  localStorage.setItem('todos', JSON.stringify(data)); 
-  renderTodos(); 
-  updateTodoCount(); // update count
+  if (confirm('Är du säker på att du vill rensa alla uppgifter?')) {
+    data.length = 0; // Töm arrayen
+    localStorage.removeItem('todos'); // Ta bort från localStorage
+    todoList.innerHTML = ''; // Töm DOM
+    console.log('Alla uppgifter rensade!');
+    updateTodoCount(); // update count
+  }
+  
+  // Rendera todo-listan vid start
+  renderTodos ();
 }
 
-//add eventlistener to erase button
-const eraseAllBtn = document.querySelector('#eraseAllBtn');
-eraseAllBtn.addEventListener('click', eraseAllTodos);
+// Koppla rensa-knappen till funktionen
+eraseAllButton.addEventListener('click', eraseAllTodos);
 
 //test
