@@ -229,3 +229,5 @@ function eraseAllTodos() {
 //add eventlistener to erase button
 const eraseAllBtn = document.querySelector('#eraseAllBtn');
 eraseAllBtn.addEventListener('click', eraseAllTodos);
+
+//test
