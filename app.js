@@ -6,6 +6,9 @@ const searchBar = document.querySelector('#search-bar');
 const searchButton = document.querySelector('#search-button');
 const todoForm = document.querySelector('#todoForm');
 const todoInput = document.querySelector('#todoInput');
+const filterSelect = document.querySelector('#filter-select');
+const sortItems = document.querySelector('#sort');
+
 
 function search() {
   // Search for items / filter the todo items based on user input.
@@ -33,6 +36,13 @@ searchBar.addEventListener('keyup', (e) => {
   }
 });
 
+
+function updateTodoCount() {
+  const count = data.length; // Number of todos in the list
+  const todoCount = document.querySelector('#todoCount');
+  todoCount.textContent = `Things To Do: ${count}`;
+}
+
 function handleTodoStatusChange(e) {
   const todoId = Number(e.target.dataset.id);
   const todoIndex = data.findIndex((item) => item.id === todoId);
@@ -43,11 +53,26 @@ function handleTodoStatusChange(e) {
   }
 }
 
-function renderTodos() {
+function filterTodos() {
+  const filterValue = filterSelect.value; // Get selected filter value
+  renderTodos(filterValue);
+}
+
+filterSelect.addEventListener('change', filterTodos);
+
+function renderTodos(filter = 'all') {
   const todoList = document.querySelector('#todoList');
   todoList.innerHTML = '';
 
   data.forEach((todo) => {
+    // Apply filtering based on the selected filter
+    if (
+      filter === 'done' && !todo.done ||
+      filter === 'not-done' && todo.done
+    ) {
+      return; // Skip todos that don't match the filter
+    }
+
     const li = document.createElement('li');
     li.innerHTML = `
             <form id="editTodoForm">
@@ -79,11 +104,19 @@ function deleteTodo(e) {
   data = data.filter((todo) => todo.id !== todoId);
   localStorage.setItem('todos', JSON.stringify(data));
   renderTodos();
+  updateTodoCount(); // update count
 }
 
 todoForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const todoText = todoInput.value.trim();
+
+  if (todoText.length === 0) {
+    showError('Please enter a todo item!');
+    todoInput.value = '';
+    return;
+  }
+
 
   if (todoText) {
     // const newTodo = {
@@ -99,8 +132,32 @@ todoForm.addEventListener('submit', (e) => {
 
     todoInput.value = '';
     renderTodos();
+    updateTodoCount(); // update count
   }
 });
+
+const showError = (message) => {
+    const errorMsg = createErrorMessage(message);
+    const errorDiv = document.querySelector('.error');
+    
+    errorDiv.innerHTML = '';
+    
+    errorDiv.appendChild(errorMsg);
+    errorDiv.style.display = 'block';
+    
+    setTimeout(() => {
+      errorDiv.innerHTML = '';
+      errorDiv.style.display = 'none';
+    }, 2000);
+};
+
+const createErrorMessage = (message) => {
+    const div = document.createElement('div');
+    div.setAttribute('id', 'error-message');
+    div.appendChild(document.createTextNode(message));
+    div.classList.add('error-message');
+    return div;
+};
 
 function handleEditTodo(e) {
   e.preventDefault();
@@ -128,4 +185,30 @@ function handleEditTodo(e) {
   }
 }
 
+const sortList = () => {
+    const sortOrder = sortItems.value;
+  
+    if (sortOrder === '1') {
+      data.sort((a, b) => a.text.localeCompare(b.text));
+    } else if (sortOrder === '2') {
+      data.sort((a, b) => b.text.localeCompare(a.text));
+    }
+  
+    renderTodos();
+}
+
+sortItems.addEventListener('change', sortList);
 renderTodos();
+updateTodoCount(); // update count
+
+//erase all todos
+function eraseAllTodos() {
+  data = []; 
+  localStorage.setItem('todos', JSON.stringify(data)); 
+  renderTodos(); 
+  updateTodoCount(); // update count
+}
+
+//add eventlistener to erase button
+const eraseAllBtn = document.querySelector('#eraseAllBtn');
+eraseAllBtn.addEventListener('click', eraseAllTodos);

@@ -16,7 +16,9 @@
     </header>
     <main>
         <h1>TODO</h1>
+        <div class="error"></div>
         <section>
+            <div id="todoCount"> Things To Do : 0 </div>
             <form id="todoForm">
                 <input type="text" id="todoInput" placeholder="Add a new todo">
                 <button type="submit">Add</button>
@@ -29,11 +31,12 @@
                 <option value="2">Z-A</option>
             </select>
 
-            <select id="filter">
-                <option value="0">Filter by</option>
-                <option value="1">Done</option>
-                <option value="2">Not done</option>
-            </select>
+            <select id="filter-select">
+                <option value="0">Filter</option>
+                <option value="all">All</option>
+                <option value="done">Done</option>
+                <option value="not-done">Not Done</option>
+              </select>
         </section>
         <section>
             <ul id="todoList">

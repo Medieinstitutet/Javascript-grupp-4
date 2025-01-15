@@ -11,5 +11,6 @@
   "liveSassCompile.settings.autoprefix": [],
   "liveSassCompile.settings.compileOnWatch": true,
   "liveSassCompile.settings.showOutputWindowOn": "Warning",
-  "liveSassCompile.settings.watchOnLaunch": true
+  "liveSassCompile.settings.watchOnLaunch": true,
+  "liveServer.settings.port": 5501
 }
