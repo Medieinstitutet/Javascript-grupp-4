@@ -1,3 +1,5 @@
+import { makeNewTodo } from "./new-todo.js";
+
 let data = JSON.parse(localStorage.getItem('todos')) || [];
 
 const searchBar = document.querySelector('#search-bar');
@@ -39,7 +41,7 @@ searchBar.addEventListener('keyup', (e) => {
 function updateTodoCount() {
   const count = data.length; // Number of todos in the list
   const todoCount = document.querySelector('#todoCount');
-  todoCount.textContent = `Total Todos: ${count}`;
+  todoCount.textContent = `Things To Do: ${count}`;
 }
 
 function handleTodoStatusChange(e) {
@@ -113,6 +115,7 @@ function renderTodos(filter = 'all') {
     editForm.addEventListener('submit', handleEditTodo);
   });
 }
+
 function deleteTodo(e) {
   const todoId = Number(e.target.dataset.id);
   data = data.filter((todo) => todo.id !== todoId);
@@ -120,6 +123,7 @@ function deleteTodo(e) {
   renderTodos();
   updateTodoCount(); // update count
 }
+
 todoForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const todoText = todoInput.value.trim();
@@ -132,12 +136,13 @@ todoForm.addEventListener('submit', (e) => {
 
 
   if (todoText) {
-    const newTodo = {
-      id: Date.now(),
-      text: todoText,
-      done: false,
-      createdAt: new Date().toISOString(),
-    };
+    // const newTodo = {
+    //   id: Date.now(),
+    //   text: todoText,
+    //   done: false,
+    //   createdAt: new Date().toISOString(),
+    // };
+    const newTodo = makeNewTodo(todoText); // returns a new todo object.
 
     data.push(newTodo);
     localStorage.setItem('todos', JSON.stringify(data));
