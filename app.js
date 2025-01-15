@@ -38,7 +38,7 @@ searchBar.addEventListener('keyup', (e) => {
 function updateTodoCount() {
   const count = data.length; // Number of todos in the list
   const todoCount = document.querySelector('#todoCount');
-  todoCount.textContent = `Total Todos: ${count}`;
+  todoCount.textContent = `Things To Do: ${count}`;
 }
 
 function handleTodoStatusChange(e) {
