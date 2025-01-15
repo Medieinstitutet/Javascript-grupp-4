@@ -7,6 +7,7 @@ const searchButton = document.querySelector('#search-button');
 const todoForm = document.querySelector('#todoForm');
 const todoInput = document.querySelector('#todoInput');
 const filterSelect = document.querySelector('#filter-select');
+const randomButton = document.querySelector('#random-button'); 
 const sortItems = document.querySelector('#sort');
 
 
@@ -59,6 +60,22 @@ function filterTodos() {
 }
 
 filterSelect.addEventListener('change', filterTodos);
+
+function selectRandomTodo() {
+  if (data.length === 0) {
+    alert('No tasks available to select!');
+    return;
+  }
+
+  // Pick a random task from the data array
+  const randomTodo = data[Math.floor(Math.random() * data.length)];
+
+  // Display the selected task to the user
+  alert(`Here is your Random Task --> ${randomTodo.text} <-- Good Luck! :D`);
+}
+
+randomButton.addEventListener('click', selectRandomTodo);
+
 
 function renderTodos(filter = 'all') {
   const todoList = document.querySelector('#todoList');
