@@ -1,0 +1,16 @@
+Vad har vi skapat?
+En todo app
+
+Hur kom vi fram till lösningen?
+Vi har använt oss av github projects för vår "backlog" med egenskaper vi vill att vårt projekt ska ha. Efter att ha besämt oss för att skapa en todoapp så kunde vi börja skriva kod. Alla har tagit minnst en egenskap och applicerat den via kod. Vi har haft regelbunda möten för att stämma av hur det går och hjälpt varandra.
+
+Vem skapade vad?
+Rain : Search, implement test
+Yonas : Filter items
+Lotiz : Delete item
+Bagher : CSS/SASS, Add item, Display items, Add items, Mark as done
+Kwabena : Edit item
+Bethel : Todo counter
+Ellen : Delete all button functionality
+Samir : Sort items from A-Z and Z-A, error at empty todo, CSS,
+
